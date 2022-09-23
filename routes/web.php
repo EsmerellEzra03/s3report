@@ -20,3 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminIndex'])->name('admin.home')->middleware(['auth','admin']);
+
+Route::get('/super/admin/home', [App\Http\Controllers\HomeController::class, 'superAdminIndex'])->name('super_admin.home')->middleware('super.admin');
