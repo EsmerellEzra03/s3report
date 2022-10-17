@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Boqs extends Model
+class Boq extends Model
 {
     use HasFactory;
 
@@ -22,8 +22,8 @@ class Boqs extends Model
         return $this->belongsTo(Scope::class);
     }
 
-    public function scheduling()
+    public function boqscheduling()
     {
-        return $this->hasMany(Scheduling::class);
+        return $this->hasMany(BoqScheduling::class, 'boq_id');
     }
 }

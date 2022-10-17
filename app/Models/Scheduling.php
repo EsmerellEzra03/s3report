@@ -26,6 +26,11 @@ class Scheduling extends Model
 
     public function boq()
     {
-        return $this->belongsTo(Boqs::class);
+        return $this->belongsTo(Boq::class);
+    }
+
+    public function boqscheduling()
+    {
+        return $this->hasMany(BoqScheduling::class);
     }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\BoqScheduling;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BoqScheduling extends Model
 {
     use HasFactory;
+    protected $table = 'boq_schedulings';
 
     protected $fillable = [
         'boq_id',
@@ -21,7 +23,7 @@ class BoqScheduling extends Model
 
     public function boq()
     {
-        return $this->belongsTo(Boqs::class);
+        return $this->belongsTo(Boq::class);
     }
 
     public function scheduling()

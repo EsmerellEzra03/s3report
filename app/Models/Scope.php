@@ -27,8 +27,9 @@ class Scope extends Model
         return $this->hasMany(Assign::class);
     }
 
-    public function scope()
+    public function boq()
     {
-        return $this->hasMany(Boqs::class);
+        return $this->hasMany(Boq::class);
     }
+
 }
