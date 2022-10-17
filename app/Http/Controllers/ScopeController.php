@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Scope;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,10 +14,19 @@ class ScopeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index1()
     {
-        $scopes=scope::all();
-        return view('scope.index',compact('scopes'));
+        $scopes=Scope::all();
+        return view('scope.index1',compact('scopes'));
+    }
+
+    public function index(Project $project)
+    {
+        // $scopes=Scope::all();
+        $scope = Project::find($project)->first()->scope->first();
+        return view('scope.index',compact('scope'));
+
     }
 
     /**
@@ -38,15 +49,15 @@ class ScopeController extends Controller
     {
         //declare model
         $scope = new Scope;
-        $scope->user_id=Auth::id();
-        $scope->project_id=$request->project_id;
+        //$scope->project_id=Auth::id();
+        //$scope->project_id=$request->project_id;
         $scope->name=$request->name;
         $scope->description=$request->description;
         $scope->created_by=$request->created_by;
-        $scope->updated_by=$request->updated_by;
+        $scope->updated_by=$request->updated_by; 
         $scope->save();
 
-        return redirect()->route('scope:index')->with('message', 'Scope added succesfully');
+        return redirect()->route('scope:index1')->with('message', 'Scope added succesfully');
     }
 
     /**

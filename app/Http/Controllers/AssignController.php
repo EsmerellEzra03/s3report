@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,10 +13,18 @@ class AssignController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index1()
     {
-        $assigns=assign::all();
-        return view('assign.index',compact('assigns'));
+        $assigns=Assign::all();
+        return view('assign.index1',compact('assigns'));
+    }
+
+    public function index(Scope $scope)
+    {
+        // $scopes=Scope::all();
+        $boq = Scope::find($scope)->first()->assign->first();
+        return view('assign.index',compact('assign'));
+
     }
 
     /**

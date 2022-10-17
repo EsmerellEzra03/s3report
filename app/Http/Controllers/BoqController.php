@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Boq;
+use App\Models\Scope;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,10 +14,18 @@ class BoqController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index1()
     {
-        $boqs=boq::all();
-        return view('boq.index',compact('boqs'));
+        $boqs=Boq::all();
+        return view('boq.index1',compact('boqs'));
+    }
+
+    public function index(Scope $scope)
+    {
+        // $scopes=Scope::all();
+        $boq = Scope::find($scope)->first()->boq->first();
+        return view('boq.index',compact('boq'));
+
     }
 
     /**
@@ -38,8 +48,8 @@ class BoqController extends Controller
     {
         //declare model
         $boq = new Boq;
-        $boq->user_id=Auth::id();
-        $boq->scope_id=$request->scope_id;
+        // $boq->user_id=Auth::id();
+        // $boq->scope_id=$request->scope_id;
         $boq->name=$request->name;
         $boq->quantity=$request->quantity;
         $boq->created_by=$request->created_by;
@@ -70,7 +80,7 @@ class BoqController extends Controller
     public function edit(Request $request, Boq $boq)
     {
         //update
-        $boq->scope_id=$request->scope_id;
+        // $boq->scope_id=$request->scope_id;
         $boq->name=$request->name;
         $boq->quantity=$request->quantity;
         $boq->created_by=$request->created_by;

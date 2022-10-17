@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Boq;
 use Illuminate\Http\Request;
+use App\Models\BoqScheduling;
+use Illuminate\Support\Facades\Auth;
 
 class BoqSchedulingController extends Controller
 {
@@ -11,11 +14,23 @@ class BoqSchedulingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index1()
     {
-        $boqschedules=boqschedule::all();
-        return view('boqschedule.index',compact('boqschedules'));
+        $boqschedules=BoqScheduling::all();
+        return view('boqschedule.index1',compact('boqschedules'));
     }
+
+    public function index(Boq $boq)
+    {
+        // $scopes=Scope::all();
+        // dd(Boqs::find($boq)->first()->boqschedule());
+        $boqschedule = Boq::find($boq)->first()->boqschedule->first();
+        // $boqschedule = Boqs::find($boq)->first();
+        return view('boqschedule.index',compact('boqschedule'));
+
+    }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -36,10 +51,10 @@ class BoqSchedulingController extends Controller
     public function store(Request $request)
     {
         //declare model
-        $boqschedule = new Boqschedule;
-        $boqschedule->user_id=Auth::id();
-        $boqschedule->boq_id=$request->boq_id;
-        $boqschedule->scheduling_id=$request->scheduling_id;
+        $boqschedule = new BoqScheduling;
+        // $boqschedule->user_id=Auth::id();
+        // $boqschedule->boq_id=$request->boq_id;
+        // $boqschedule->scheduling_id=$request->scheduling_id;
         $boqschedule->quantity=$request->quantity;
         $boqschedule->completed=$request->completed;
         $boqschedule->percentage=$request->percentage;
@@ -56,7 +71,7 @@ class BoqSchedulingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Boqschedule $boqschedule)
+    public function show(BoqScheduling $boqschedule)
     {
         //create editform
         return view('boqschedule.show', compact ('boqschedule'));
@@ -68,7 +83,7 @@ class BoqSchedulingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Boqschedule $boqschedule)
+    public function edit(Request $request, BoqScheduling $boqschedule)
     {
         //update
         $boqschedule->boq_id=$request->boq_id;
@@ -101,7 +116,7 @@ class BoqSchedulingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Boqschedule $boqschedule)
+    public function destroy(BoqScheduling $boqschedule)
     {
         //to delete
         $boqschedule->delete();

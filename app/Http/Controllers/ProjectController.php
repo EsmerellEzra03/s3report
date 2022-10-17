@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects=project::all();
+        $projects=Project::all();
         return view('project.index',compact('projects'));
     }
 
@@ -38,7 +39,7 @@ class ProjectController extends Controller
     {
         //declare model
         $project = new Project;
-        $project->user_id=Auth::id();
+        //$project->user_id=Auth::id();
         $project->pic_id=$request->pic_id;
         $project->name=$request->name;
         $project->start_date=$request->start_date;
@@ -107,4 +108,5 @@ class ProjectController extends Controller
 
         return redirect()->route('project:index')->with('message', 'Project deleted');
     }
+
 }

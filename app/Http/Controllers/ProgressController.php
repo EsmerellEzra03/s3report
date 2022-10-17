@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Progress;
+use App\Models\Scheduling;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProgressController extends Controller
 {
@@ -11,10 +14,19 @@ class ProgressController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index1()
     {
-        $progresses=progress::all();
-        return view('progress.index',compact('progresses'));
+        $progresses=Progress::all();
+        return view('progress.index1',compact('progresses'));
+    }
+
+    public function index(Scheduling $schedule)
+    {
+        // $scopes=Scope::all();
+        // $progress = Scheduling::find($schedule)->first()->progress->first();
+        $progress = Scheduling::find($schedule)->first();
+        return view('progress.index',compact('progress'));
+
     }
 
     /**
@@ -37,7 +49,7 @@ class ProgressController extends Controller
     {
         //declare model
         $progress = new Progress;
-        $progress->user_id=Auth::id();
+        //$progress->user_id=Auth::id();
         $progress->schedule_id=$request->schedule_id;
         $progress->name=$request->name;
         $progress->remark=$request->remark;

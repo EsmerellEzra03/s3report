@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Assign;
+use App\Models\Scheduling;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,10 +14,19 @@ class SchedulingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index1()
     {
-        $schedules=schedule::all();
-        return view('schedule.index',compact('schedules'));
+        $schedules=Scheduling::all();
+        return view('schedule.index1',compact('schedules'));
+    }
+
+    public function index(Assign $assign)
+    {
+        // $scopes=Scope::all();
+        // $schedule = Assign::find($assign)->first()->schedule->first();
+        $schedule = Assign::find($assign)->first();
+        return view('schedule.index',compact('schedule'));
+
     }
 
     /**
@@ -25,7 +36,7 @@ class SchedulingController extends Controller
      */
     public function create()
     {
-        return view('schedule.schedule');
+        return view('schedule.scheduling');
     }
 
     /**
@@ -37,8 +48,8 @@ class SchedulingController extends Controller
     public function store(Request $request)
     {
         //declare model
-        $schedule = new Schedule;
-        $schedule->user_id=Auth::id();
+        $schedule = new Scheduling;
+        // $schedule->user_id=Auth::id();
         $schedule->assign_id=$request->assign_id;
         $schedule->boq_id=$request->boq_id;
         $schedule->start_date=$request->start_date;
@@ -56,7 +67,7 @@ class SchedulingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Schedule $schedule)
+    public function show(Scheduling $schedule)
     {
         //create editform
         return view('schedule.show', compact ('schedule'));
@@ -68,7 +79,7 @@ class SchedulingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, Schedule $schedule)
+    public function edit(Request $request, Scheduling $schedule)
     {
         //update
         $schedule->assign_id=$request->assign_id;
@@ -100,7 +111,7 @@ class SchedulingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Schedule $schedule)
+    public function destroy(Scheduling $schedule)
     {
         //to delete
         $schedule->delete();
