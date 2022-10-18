@@ -1,4 +1,4 @@
-@extends('layouts.template')
+@extends('layouts.outline')
 
 @section('content')
 <div class="py-12">
