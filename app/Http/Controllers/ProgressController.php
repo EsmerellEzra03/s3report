@@ -23,8 +23,9 @@ class ProgressController extends Controller
     public function index(Scheduling $schedule)
     {
         // $scopes=Scope::all();
-        // $progress = Scheduling::find($schedule)->first()->progress->first();
-        $progress = Scheduling::find($schedule)->first();
+        $progress = Scheduling::find($schedule)->first()->progress->first();
+        // dd($progress = Scheduling::find($schedule)->first());
+        // $progress = Scheduling::find($schedule)->first();
         return view('progress.index',compact('progress'));
 
     }
@@ -50,7 +51,7 @@ class ProgressController extends Controller
         //declare model
         $progress = new Progress;
         //$progress->user_id=Auth::id();
-        $progress->schedule_id=$request->schedule_id;
+        // $progress->schedule_id=$request->schedule_id;
         $progress->name=$request->name;
         $progress->remark=$request->remark;
         $progress->date=$request->date;
@@ -82,7 +83,7 @@ class ProgressController extends Controller
     public function edit(Request $request, Progress $progress)
     {
         //update
-        $progress->schedule_id=$request->schedule_id;
+        // $progress->schedule_id=$request->schedule_id;
         $progress->name=$request->name;
         $progress->remark=$request->remark;
         $progress->date=$request->date;

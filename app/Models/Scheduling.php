@@ -33,4 +33,9 @@ class Scheduling extends Model
     {
         return $this->hasMany(BoqScheduling::class);
     }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class);
+    }
 }

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('progresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('schedule_id')->nullable();
+            $table->unsignedBigInteger('scheduling_id')->nullable();
             $table->string('name');
             $table->string('remark');
             $table->date('date');
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('updated_by');
             $table->timestamps();
 
-            $table->foreign('schedule_id')->references('id')->on('schedulings')->onDelete('cascade');
+            $table->foreign('scheduling_id')->references('id')->on('schedulings')->onDelete('cascade');
         });
     }
 
@@ -35,7 +35,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('progresses', function (Blueprint $table) {
-            $table->dropForeign(['schedule_id']);
+            $table->dropForeign(['scheduling_id']);
         });
     }
 };

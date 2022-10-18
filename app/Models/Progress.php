@@ -11,7 +11,7 @@ class Progress extends Model
     protected $table = 'progresses';
 
     protected $fillable = [
-        'schedule_id',
+        'scheduling_id',
         'name',
         'remark',
         'date',
